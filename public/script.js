@@ -6,7 +6,7 @@ async function shortenUrl() {
 
     // reset UI properly
     resultSection.hidden = true;
-    errorBox.classList.remove('show');   // ✅ FIX
+    errorBox.classList.remove('show');  
 
     if (!url) {
         alert('Please enter a URL');
@@ -26,7 +26,7 @@ async function shortenUrl() {
             document.getElementById('errorText').textContent =
                 'Error: ' + (data.error || 'Something went wrong');
 
-            errorBox.classList.add('show');   // ✅ FIX
+            errorBox.classList.add('show');   
             return;
         }
 
@@ -40,7 +40,7 @@ async function shortenUrl() {
         document.getElementById('errorText').textContent =
             'ERROR: ' + err.message;
 
-        errorBox.classList.add('show');   // ✅ FIX
+        errorBox.classList.add('show');   
     }
 }
 
