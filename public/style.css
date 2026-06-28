@@ -1,0 +1,824 @@
+/* ══════════════════════════════════════════════════════
+   SHORTLINK — Luxury × Retro 90s Theme
+   Palette:
+     Midnight Navy  #0D1B2A  (bg base)
+     Navy Mid       #1A2E45  (surface)
+     Navy Light     #2C4360  (hover surface)
+     Champagne      #D4AF72  (primary accent)
+     Champagne Lt   #EDD9A3  (light highlight)
+     Champagne Dk   #A8842C  (deep gold)
+     Dusty Rose     #C4919B  (secondary accent)
+     Rose Light     #E8C4CA  (rose highlight)
+     Rose Dark      #8B5565  (deep rose)
+     Pearl White    #F5F0E8  (body text)
+     Pearl Dk       #D6CCBB  (muted text)
+     Ivory          #FDFAF4  (headline white)
+   Fonts:
+     Press Start 2P — pixel / game labels
+     VT323          — retro terminal body text
+     Cormorant Garamond — luxury serif headlines & numbers
+   ══════════════════════════════════════════════════════ */
+
+
+/* ── RESET & BASE ─────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0D1B2A;
+  color: #F5F0E8;
+  font-family: 'VT323', monospace;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+
+/* ── SCANLINES (CRT overlay) ──────────────────────────── */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(212, 175, 114, 0.022) 3px,
+    rgba(212, 175, 114, 0.022) 4px
+  );
+  pointer-events: none;
+  z-index: 100;
+}
+
+
+/* ── ANIMATIONS ───────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes loading-pulse {
+  0%   { width: 0%; }
+  60%  { width: 85%; }
+  100% { width: 95%; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.blink {
+  animation: blink 1s step-end infinite;
+}
+
+
+/* ── HEADER ───────────────────────────────────────────── */
+.header {
+  background: #1A2E45;
+  border-bottom: 2px solid #D4AF72;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 28px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Window chrome dots */
+.header__chrome {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 18px 20px 18px 0;
+  border-right: 1px solid rgba(212, 175, 114, 0.25);
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+
+.chrome-dot {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.chrome-dot--rose  { background: #C4919B; }
+.chrome-dot--champ { background: #D4AF72; }
+.chrome-dot--pearl { background: #D6CCBB; }
+
+/* Logo */
+.header__logo {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 11px;
+  color: #D4AF72;
+  letter-spacing: 1px;
+  flex: 1;
+  padding: 18px 0;
+  text-decoration: none;
+}
+
+.header__logo-accent {
+  color: #C4919B;
+}
+
+/* Nav */
+.header__nav {
+  display: flex;
+  align-items: stretch;
+}
+
+.header__nav-link {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: #D6CCBB;
+  letter-spacing: 1px;
+  padding: 0 18px;
+  border-left: 1px solid rgba(212, 175, 114, 0.2);
+  display: flex;
+  align-items: center;
+  opacity: 0.65;
+  transition: opacity 0.15s, color 0.15s;
+  text-decoration: none;
+}
+
+.header__nav-link:hover {
+  color: #D4AF72;
+  opacity: 1;
+}
+
+
+/* ── TICKER TAPE ──────────────────────────────────────── */
+.ticker {
+  background: #D4AF72;
+  overflow: hidden;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.ticker__track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 20s linear infinite;
+}
+
+.ticker__text {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: #0D1B2A;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  padding-right: 60px;
+}
+
+.ticker__sep {
+  color: #8B5565;
+  margin: 0 14px;
+}
+
+
+/* ── MAIN ─────────────────────────────────────────────── */
+.main {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+}
+
+
+/* ── HERO ─────────────────────────────────────────────── */
+.hero {
+  text-align: center;
+  padding: 52px 16px 32px;
+}
+
+.hero__eyebrow {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: #C4919B;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+  line-height: 1.8;
+}
+
+.hero__heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 7vw, 56px);
+  font-weight: 600;
+  color: #FDFAF4;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+.hero__heading em {
+  color: #C4919B;
+  font-style: italic;
+}
+
+.hero__sub {
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  color: #D6CCBB;
+  letter-spacing: 1.5px;
+  margin-bottom: 24px;
+  opacity: 0.8;
+}
+
+/* Decorative diamond row */
+.hero__divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.hero__diamond {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+.hero__diamond--champ { background: #D4AF72; }
+.hero__diamond--rose  { background: #C4919B; }
+
+
+/* ── CARD ─────────────────────────────────────────────── */
+.card {
+  background: rgba(26, 46, 69, 0.75);
+  border: 2px solid #D4AF72;
+  border-radius: 0;                      /* sharp pixel corners */
+  padding: 0 0 28px;
+  position: relative;
+  margin-bottom: 28px;
+  animation: fade-in-up 0.4s ease both;
+}
+
+/* Pixel corner accent squares */
+.card::before {
+  content: '';
+  position: absolute;
+  top: -7px;
+  left: -7px;
+  width: 13px;
+  height: 13px;
+  background: #C4919B;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  right: -7px;
+  width: 13px;
+  height: 13px;
+  background: #C4919B;
+}
+
+/* Window title bar inside card */
+.card__titlebar {
+  background: #D4AF72;
+  color: #0D1B2A;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  padding: 8px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.card__titlebar-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.ctd {
+  display: block;
+  width: 9px;
+  height: 9px;
+  background: #0D1B2A;
+}
+
+
+/* ── INPUT GROUP ──────────────────────────────────────── */
+.input-group {
+  padding: 0 28px;
+}
+
+.input-group__label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: #C4919B;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 12px;
+  line-height: 1.8;
+}
+
+.input-group__row {
+  display: flex;
+  border: 2px solid rgba(212, 175, 114, 0.55);
+  overflow: hidden;
+}
+
+.input-group__field {
+  flex: 1;
+  background: rgba(13, 27, 42, 0.9);
+  border: none;
+  outline: none;
+  color: #EDD9A3;
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  padding: 13px 16px;
+  letter-spacing: 0.5px;
+  transition: background 0.15s;
+  min-width: 0;
+}
+
+.input-group__field::placeholder {
+  color: rgba(214, 204, 187, 0.28);
+}
+
+.input-group__field:focus {
+  background: rgba(44, 67, 96, 0.5);
+  outline: none;
+}
+
+.input-group__hint {
+  font-family: 'VT323', monospace;
+  font-size: 15px;
+  color: #D6CCBB;
+  opacity: 0.4;
+  letter-spacing: 1px;
+  margin-top: 8px;
+  display: block;
+}
+
+
+/* ── SHORTEN BUTTON ───────────────────────────────────── */
+.btn-shorten {
+  background: #D4AF72;
+  border: none;
+  color: #0D1B2A;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  padding: 0 20px;
+  white-space: nowrap;
+  transition: background 0.15s, transform 0.08s;
+  flex-shrink: 0;
+}
+
+.btn-shorten:hover {
+  background: #EDD9A3;
+}
+
+.btn-shorten:active {
+  transform: scale(0.97);
+  background: #A8842C;
+}
+
+.btn-shorten:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* ── LOADING STATE ────────────────────────────────────── */
+.loading {
+  padding: 20px 28px 0;
+}
+
+.loading__track {
+  height: 6px;
+  background: rgba(212, 175, 114, 0.15);
+  border: 1px solid rgba(212, 175, 114, 0.3);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.loading__fill {
+  height: 100%;
+  background: linear-gradient(90deg, #C4919B, #D4AF72, #C4919B);
+  background-size: 200% 100%;
+  animation: loading-pulse 2s ease forwards;
+}
+
+.loading__text {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: #D4AF72;
+  letter-spacing: 2px;
+}
+
+.loading__dots {
+  animation: blink 0.8s step-end infinite;
+}
+
+
+/* ── RESULT SECTION ───────────────────────────────────── */
+.result {
+  margin: 20px 28px 0;
+  border: 2px solid #C4919B;
+  background: rgba(196, 145, 155, 0.07);
+  padding: 18px 20px;
+  animation: fade-in-up 0.35s ease both;
+}
+
+.result__badge {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: #C4919B;
+  letter-spacing: 1.5px;
+  margin-bottom: 14px;
+  line-height: 1.8;
+}
+
+.result__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.result__url {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #EDD9A3;
+  letter-spacing: 0.5px;
+  flex: 1;
+  word-break: break-all;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.result__url:hover {
+  color: #D4AF72;
+  text-decoration: underline;
+}
+
+.result__original {
+  font-family: 'VT323', monospace;
+  font-size: 15px;
+  color: #D6CCBB;
+  opacity: 0.45;
+  letter-spacing: 0.5px;
+  word-break: break-all;
+  margin-bottom: 14px;
+}
+
+
+/* ── COPY BUTTON ──────────────────────────────────────── */
+.btn-copy {
+  background: transparent;
+  border: 2px solid #C4919B;
+  color: #E8C4CA;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  letter-spacing: 1px;
+  padding: 9px 14px;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-copy:hover {
+  background: rgba(196, 145, 155, 0.2);
+  color: #F5F0E8;
+}
+
+.btn-copy:active {
+  transform: scale(0.96);
+}
+
+.btn-copy.copied {
+  border-color: #D4AF72;
+  color: #D4AF72;
+}
+
+
+/* ── RESET BUTTON ─────────────────────────────────────── */
+.btn-reset {
+  background: transparent;
+  border: 1px solid rgba(212, 175, 114, 0.35);
+  color: #D6CCBB;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  letter-spacing: 1px;
+  padding: 8px 14px;
+  opacity: 0.65;
+  transition: opacity 0.15s, color 0.15s;
+}
+
+.btn-reset:hover {
+  opacity: 1;
+  color: #D4AF72;
+  border-color: rgba(212, 175, 114, 0.6);
+}
+
+
+/* ── ERROR STATE ──────────────────────────────────────── */
+.error {
+  margin: 16px 28px 0;
+  border: 2px solid #8B5565;
+  background: rgba(139, 85, 101, 0.1);
+  padding: 14px 16px;
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+
+.error.show {
+  display: flex;
+}
+
+.error__icon {
+  font-size: 18px;
+  color: #C4919B;
+  flex-shrink: 0;
+}
+
+#errorText {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: #E8C4CA;
+  letter-spacing: 1px;
+  line-height: 1.8;
+}
+
+
+/* ── STATS BAR ────────────────────────────────────────── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 2px solid rgba(212, 175, 114, 0.28);
+  margin-bottom: 28px;
+}
+
+.stats__item {
+  padding: 22px 14px;
+  text-align: center;
+  border-right: 1px dashed rgba(212, 175, 114, 0.22);
+}
+
+.stats__item:last-child {
+  border-right: none;
+}
+
+.stats__num {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 34px;
+  font-weight: 600;
+  color: #D4AF72;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stats__label {
+  display: block;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  color: #C4919B;
+  letter-spacing: 1.5px;
+  opacity: 0.85;
+}
+
+
+/* ── HOW IT WORKS ─────────────────────────────────────── */
+.steps {
+  margin-bottom: 20px;
+}
+
+.steps__heading {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: #D4AF72;
+  letter-spacing: 2px;
+  border-bottom: 1px dashed rgba(212, 175, 114, 0.3);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.steps__heading span {
+  color: #C4919B;
+}
+
+.steps__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.step {
+  border: 1px solid rgba(196, 145, 155, 0.3);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(26, 46, 69, 0.4);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.step:hover {
+  border-color: rgba(212, 175, 114, 0.5);
+  background: rgba(44, 67, 96, 0.35);
+}
+
+.step__num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  font-weight: 600;
+  color: #C4919B;
+  line-height: 1;
+  opacity: 0.55;
+}
+
+.step__title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: #D4AF72;
+  letter-spacing: 1px;
+  font-weight: 400;
+  display: block;
+}
+
+.step__desc {
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+  color: #D6CCBB;
+  opacity: 0.6;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+}
+
+
+/* ── FOOTER ───────────────────────────────────────────── */
+.footer {
+  border-top: 2px solid #D4AF72;
+  background: #1A2E45;
+  padding: 28px 20px;
+}
+
+.footer__inner {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.footer__logo {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 11px;
+  color: #D4AF72;
+  letter-spacing: 2px;
+}
+
+.footer__logo span {
+  color: #C4919B;
+}
+
+.footer__stack {
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  color: #D6CCBB;
+  letter-spacing: 2.5px;
+  opacity: 0.55;
+}
+
+.footer__dot {
+  color: #C4919B;
+  margin: 0 6px;
+}
+
+.footer__copy {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  color: #D6CCBB;
+  opacity: 0.3;
+  letter-spacing: 1px;
+}
+
+
+/* ── RESPONSIVE ───────────────────────────────────────── */
+@media (max-width: 600px) {
+
+  .header__nav {
+    display: none;               /* collapses nav on mobile */
+  }
+
+  .header__logo {
+    font-size: 9px;
+  }
+
+  .hero__eyebrow {
+    font-size: 6px;
+    letter-spacing: 2px;
+  }
+
+  .hero__heading {
+    font-size: 36px;
+  }
+
+  .hero__sub {
+    font-size: 17px;
+  }
+
+  .card {
+    margin-left: -4px;
+    margin-right: -4px;
+  }
+
+  .input-group,
+  .result,
+  .loading,
+  .error {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .input-group__row {
+    flex-direction: column;
+  }
+
+  .btn-shorten {
+    padding: 14px 20px;
+    font-size: 7px;
+    border-top: 2px solid rgba(212, 175, 114, 0.3);
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .stats__item {
+    border-right: none;
+    border-bottom: 1px dashed rgba(212, 175, 114, 0.22);
+  }
+
+  .stats__item:last-child {
+    border-bottom: none;
+  }
+
+  .steps__list {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .result__row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .result__url {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero__heading {
+    font-size: 30px;
+  }
+
+  .card__titlebar {
+    font-size: 6px;
+  }
+}

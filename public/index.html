@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShortLink — URL Shortener</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Cormorant+Garamond:ital,wght@0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+
+    <div class="scanlines" aria-hidden="true"></div>
+
+    
+    <header class="header">
+      <div class="header__inner">
+
+        <div class="header__chrome" aria-hidden="true">
+          <span class="chrome-dot chrome-dot--rose"></span>
+          <span class="chrome-dot chrome-dot--champ"></span>
+          <span class="chrome-dot chrome-dot--pearl"></span>
+        </div>
+
+        <a href="/" class="header__logo" aria-label="ShortLink home">
+          SHORT<span class="header__logo-accent">LINK</span>.EXE
+        </a>
+
+        <nav class="header__nav" aria-label="Main navigation">
+          <a href="#" class="header__nav-link">HOME</a>
+          <a href="#" class="header__nav-link">HISTORY</a>
+          <a href="#" class="header__nav-link">API</a>
+        </nav>
+
+      </div>
+    </header>
+
+    
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track">
+        <span class="ticker__text">
+          ✦ SHORTLINK v1.0
+          <span class="ticker__sep">◆</span> MINT YOUR LINK
+          <span class="ticker__sep">◆</span> ELEGANCE IN EVERY URL
+          <span class="ticker__sep">◆</span> BUILT WITH EXPRESS &amp; MYSQL
+          <span class="ticker__sep">◆</span> A B.TECH PROJECT
+          <span class="ticker__sep">◆</span> INSERT URL TO PLAY
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          ✦ SHORTLINK v1.0
+          <span class="ticker__sep">◆</span> MINT YOUR LINK
+          <span class="ticker__sep">◆</span> ELEGANCE IN EVERY URL
+          <span class="ticker__sep">◆</span> BUILT WITH EXPRESS &amp; MYSQL
+          <span class="ticker__sep">◆</span> A B.TECH PROJECT
+          <span class="ticker__sep">◆</span> INSERT URL TO PLAY
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>
+      </div>
+    </div>
+
+
+    <main class="main">
+
+     
+      <section class="hero" aria-label="Product introduction">
+
+        <p class="hero__eyebrow">
+          ✦ &nbsp; USER ONE — ENTER URL &nbsp; ✦
+        </p>
+
+        <h1 class="hero__heading">
+          Myshort.<em >ly</em>
+        </h1>
+
+        <p class="hero__sub">
+          &gt;&nbsp; Transform long URLs into refined short codes — instantly
+          <span class="blink" aria-hidden="true">_</span>
+        </p>
+
+        <div class="hero__divider" aria-hidden="true">
+          <span class="hero__diamond hero__diamond--rose"></span>
+          <span class="hero__diamond hero__diamond--champ"></span>
+          <span class="hero__diamond hero__diamond--rose"></span>
+        </div>
+
+      </section>
+
+
+      
+      <section class="card" aria-label="URL shortener tool">
+
+        <div class="card__titlebar" aria-hidden="true">
+          <span class="card__titlebar-text">URL_COMPRESSOR.EXE</span>
+          <div class="card__titlebar-dots">
+            <span class="ctd"></span>
+            <span class="ctd"></span>
+            <span class="ctd"></span>
+          </div>
+        </div>
+
+        <!-- Input group -->
+        <div class="input-group">
+          <label class="input-group__label" for="urlInput">
+            &gt; PASTE TARGET URL:
+          </label>
+          <div class="input-group__row">
+            <input
+              type="url"
+              id="urlInput"
+              class="input-group__field"
+              placeholder="https://your-very-long-url.com/page/here"
+              autocomplete="off"
+              spellcheck="false"
+              aria-describedby="urlHint"
+            />
+            <button class="btn-shorten" id="btn" type="button">
+              &#9654;&nbsp; SHORTEN
+            </button>
+          </div>
+          <span id="urlHint" class="input-group__hint">
+            &gt; HTTP and HTTPS supported
+          </span>
+        </div>
+
+        <!-- Loading state -->
+        <div class="loading" id="loading" aria-live="polite" hidden>
+          <div class="loading__track" aria-hidden="true">
+            <div class="loading__fill"></div>
+          </div>
+          <span class="loading__text">
+            MINTING LINK<span class="loading__dots" aria-hidden="true">...</span>
+          </span>
+        </div>
+
+        <!-- Result section -->
+        <section
+          class="result"
+          id="result"
+          aria-label="Shortened URL result"
+          aria-live="polite"
+          hidden
+        >
+          <div class="result__badge">
+            <span aria-hidden="true">✦</span> MISSION COMPLETE — SHORT LINK READY
+          </div>
+          <div class="result__row">
+            <a
+              class="result__url"
+              id="resultUrl"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+            ></a>
+            <button
+              class="btn-copy"
+              id="copyBtn"
+              type="button"
+              aria-label="Copy shortened URL to clipboard"
+            >
+              [ COPY ]
+            </button>
+          </div>
+          <p class="result__original" id="resultOriginal"></p>
+          <button class="btn-reset" id="resetBtn" type="button">
+            &#8635; SHORTEN ANOTHER
+          </button>
+        </section>
+
+        <!-- Error state -->
+        <div
+          class="error"
+          id="error"
+          role="alert"
+          aria-live="assertive"
+          hidden
+        >
+          <span class="error__icon" aria-hidden="true">&#9888;</span>
+          <span id="errorText">ERROR: Something went wrong. Please try again.</span>
+        </div>
+
+      </section>
+
+     
+
+
+      <section class="steps" aria-label="How it works">
+
+        <h2 class="steps__heading">
+          &gt; HOW_TO_USE <span aria-hidden="true">&#9632;</span>
+        </h2>
+
+        <ol class="steps__list">
+
+          <li class="step">
+            <span class="step__num" aria-hidden="true">I</span>
+            <strong class="step__title">PASTE URL</strong>
+            <span class="step__desc">Drop your long link into the input field above</span>
+          </li>
+
+          <li class="step">
+            <span class="step__num" aria-hidden="true">II</span>
+            <strong class="step__title">SHORTEN</strong>
+            <span class="step__desc">Server mints a unique NanoID short code for you</span>
+          </li>
+
+          <li class="step">
+            <span class="step__num" aria-hidden="true">III</span>
+            <strong class="step__title">SHARE</strong>
+            <span class="step__desc">Copy your refined link and send it anywhere</span>
+          </li>
+
+        </ol>
+
+      </section>
+
+    </main>
+
+
+  
+    <footer class="footer">
+      <div class="footer__inner">
+
+        <div class="footer__logo">
+          SHORT<span>LINK</span>
+        </div>
+
+        <p class="footer__stack">
+          Express.js
+          <span class="footer__dot" aria-hidden="true">✦</span>
+          MySQL
+          <span class="footer__dot" aria-hidden="true">✦</span>
+          NanoID
+          <span class="footer__dot" aria-hidden="true">✦</span>
+          Vanilla JS
+        </p>
+
+        <p class="footer__copy">
+          &copy; myshort.ly &mdash; A B.Tech Project by Tashifur Rahman
+        </p>
+
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
