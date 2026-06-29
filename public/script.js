@@ -4,7 +4,7 @@ async function shortenUrl() {
     const resultSection = document.getElementById('result');
     const errorBox = document.getElementById('error');
 
-    // reset UI properly
+  
     resultSection.hidden = true;
     errorBox.classList.remove('show');  
 
